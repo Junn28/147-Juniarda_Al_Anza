@@ -1,28 +1,9 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('title', 'Absen Kuy!')
 
-    <title>Absen Kuy!</title>
-
-    <!-- styles -->
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            color: salmon;
-        }
-    </style>
-</head>
-
-<body>
-    <h1>Hello World!!!</h1>
-</body>
-
-</html>
+@section('content')
+    <h1 class="text-3xl font-bold text-red-500">
+        Hello world!
+    </h1>
+@endsection
