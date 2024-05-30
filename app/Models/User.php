@@ -20,6 +20,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'gender',
+        'phone_number'
     ];
 
     /**
@@ -43,5 +45,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function presence()
+    {
+        return $this->belongsTo(Presence::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role', 'id');
+    }
+
+    public function absent()
+    {
+        return $this->belongsTo(Absent::class, 'id_user', 'id');
     }
 }

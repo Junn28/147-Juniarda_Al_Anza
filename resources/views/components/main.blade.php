@@ -1,3 +1,3 @@
-<div class="container mx-auto h-[85vh] relative">
+<div class="container mx-auto h-[87vh] relative">
     {{ $slot }}
 </div>

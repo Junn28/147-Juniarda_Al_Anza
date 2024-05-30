@@ -1,23 +1,37 @@
 <?php
 
+use App\Http\Controllers\AbsentController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PresenceController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('pages.login');
+Route::controller(AuthController::class)->group(function() {
+    Route::get('/', 'index')->name('loginPage');
+    Route::get('/logout', 'logout')->name('logout');
+    Route::post('/login', 'login')->name('login');
+    Route::post('/signup', 'signUp')->name('signup');
 });
 
-Route::get('/home', function() {
-    return view('pages/home');
-});
+// admin
+Route::get('/admin/home', [HomeController::class, 'index'])->middleware(['authenticate:admin'])->name('admin.home');
+Route::get('/admin/permission', [PermissionController::class, 'index'])->middleware(['authenticate:admin'])->name('admin.permission');
 
-Route::get('/permission', function() {
-    return view('pages/permission');
-});
+// user
+Route::get('/home', [HomeController::class, 'index'])->middleware(['authenticate:user'])->name('user.home');
 
-Route::get('/admin-home', function() {
-    return view('pages/admin/home');
-});
+Route::post('/timeIn', [PresenceController::class, 'store'])->middleware(['authenticate:user'])->name('timeIn');
+Route::put('/timeOut', [PresenceController::class, 'update'])->middleware(['authenticate:user'])->name('timeOut');
 
-Route::get('/admin-permission', function() {
-    return view('pages/admin/permission');
+Route::get('/presence', [AbsentController::class, 'presence'])->middleware(['authenticate:user'])->name('presence');
+Route::get('/absence', [AbsentController::class, 'absence'])->middleware(['authenticate:user'])->name('absence');
+
+Route::get('/permission', [PermissionController::class, 'index'])->middleware(['authenticate:user'])->name('permission');
+Route::post('/permission', [PermissionController::class, 'store'])->middleware(['authenticate:user'])->name('permission');
+
+Route::get('/getSession', function() {
+    $data = request()->session()->all();
+    return $data;
 });
