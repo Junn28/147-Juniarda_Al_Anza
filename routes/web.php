@@ -18,6 +18,8 @@ Route::controller(AuthController::class)->group(function() {
 // admin
 Route::get('/admin/home', [HomeController::class, 'index'])->middleware(['authenticate:admin'])->name('admin.home');
 Route::get('/admin/permission', [PermissionController::class, 'index'])->middleware(['authenticate:admin'])->name('admin.permission');
+Route::delete('/absent/delete/{id}', [AbsentController::class, 'destroy'])->middleware(['authenticate:admin'])->name('absent.delete');
+Route::post('/addUser', [UserController::class, 'add'])->middleware(['authenticate:admin'])->name('add');
 
 // user
 Route::get('/home', [HomeController::class, 'index'])->middleware(['authenticate:user'])->name('user.home');
@@ -27,9 +29,10 @@ Route::put('/timeOut', [PresenceController::class, 'update'])->middleware(['auth
 
 Route::get('/presence', [AbsentController::class, 'presence'])->middleware(['authenticate:user'])->name('presence');
 Route::get('/absence', [AbsentController::class, 'absence'])->middleware(['authenticate:user'])->name('absence');
+Route::get('/permit', [AbsentController::class, 'permission'])->middleware(['authenticate:user'])->name('permit');
 
-Route::get('/permission', [PermissionController::class, 'index'])->middleware(['authenticate:user'])->name('permission');
-Route::post('/permission', [PermissionController::class, 'store'])->middleware(['authenticate:user'])->name('permission');
+Route::get('/permission', [PermissionController::class, 'index'])->middleware(['authenticate:user'])->name('user.permission');
+Route::post('/permission', [PermissionController::class, 'store'])->middleware(['authenticate:user'])->name('user.permission');
 
 Route::get('/getSession', function() {
     $data = request()->session()->all();

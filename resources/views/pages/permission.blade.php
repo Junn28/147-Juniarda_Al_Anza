@@ -16,7 +16,7 @@
                 </x-alert>
             @endif
 
-            @include('components/avatar', $user)
+            @include('components/avatar')
 
             <form class="w-1/2 border border-black p-3 rounded-md self-center my-3" action="permission" method="POST">
                 @csrf

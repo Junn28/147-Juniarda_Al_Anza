@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absent;
 use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
@@ -12,11 +14,20 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        $user = User::find(session()->get('userId'));
+        $absent = Absent::find(session()->get('userId'));
+        $permissions = Permission::all();
+        
         if(session()->get('role') == 'admin') {
-            return view('pages/admin/permission');
+            return view('pages/admin/permission', [
+                'permissions' => $permissions
+            ]);
         }
 
-        return view('pages/permission');
+        return view('pages/permission', [
+            'user' => $user,
+            'absent' => $absent
+        ]);
     }
 
     /**
@@ -40,7 +51,7 @@ class PermissionController extends Controller
             'updated_at' => now()
         ]);
 
-        return redirect()->back()->withSuccess('Your permission request has been sent');
+        return redirect()->route('permit');
     }
 
     /**

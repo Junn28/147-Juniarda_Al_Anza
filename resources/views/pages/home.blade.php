@@ -41,7 +41,7 @@
                 </x-modal>
 
                 <div class="text-center">
-                    <x-buttons.cta class="btn bg-lime-500 text-white" name="In" onclick="my_modal.showModal()">
+                    <x-buttons.cta class="btn bg-lime-500 text-white w-32" name="In" onclick="my_modal.showModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="#fff" viewBox="0 0 512 512"
                             stroke="currentColor">
                             <path
@@ -51,7 +51,7 @@
                     <form action="timeOut" method="POST">
                         @csrf
                         @method('put')
-                        <x-buttons.cta class="btn bg-rose-500 text-white" name="Out">
+                        <x-buttons.cta class="btn bg-rose-500 text-white w-32" name="Out">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="#fff" viewBox="0 0 512 512"
                                 stroke="currentColor">
                                 <path

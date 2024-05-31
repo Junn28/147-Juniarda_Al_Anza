@@ -59,6 +59,11 @@ class User extends Authenticatable
 
     public function absent()
     {
-        return $this->belongsTo(Absent::class, 'id_user', 'id');
+        return $this->hasOne(Absent::class, 'id_user', 'id');
+    }
+
+    public function permission()
+    {
+        return $this->hasOne(Permission::class, 'id_user', 'id');
     }
 }
